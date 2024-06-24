@@ -25,8 +25,10 @@ public class AttachmentServiceImpl implements AttachmentService{
     @Override
 
     public Attachment saveFile(MultipartFile file) throws FileStorageException, IOException {
-
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        if(fileName.isEmpty()){
+            throw new FileStorageException(HttpStatus.NOT_FOUND, "File was not provided");
+        }
         if (fileName.contains("..")) {
             throw new FileStorageException(HttpStatus.BAD_REQUEST, "Filename contains invalid path sequence " + fileName);
         }
@@ -40,7 +42,6 @@ public class AttachmentServiceImpl implements AttachmentService{
     @Override
     public Attachment getFile(String fileId) throws Exception {
         return fileRepository.findById(Long.valueOf(fileId)).orElseThrow(()->new Exception("File not Found with Id "+fileId));
-
     }
 
 
