@@ -28,7 +28,7 @@ public class AttachmentController {
 
         this.fileService = fileService;
     }
-    
+
     @PostMapping("/upload")
      public ResponseData uploadFile(@RequestParam("File")MultipartFile file) throws Exception {
         Attachment newFile = null;
@@ -38,12 +38,6 @@ public class AttachmentController {
         }catch (FileStorageException e){
             throw new FileStorageException(e.getStatus(), e.getMessage());
         }
-//        catch (MaxUploadSizeExceededException e){
-//            System.out.println("File Size Exceeded :-MaxUploadFileSize(200MB)");
-//            return new MaxUploadSizeExceededException("File Size Exceeded :-MaxUploadFileSize(200MB)", HttpStatus.BAD_REQUEST);
-//        }catch (HttpRequestMethodNotSupportedException e){
-//            System.out.println("method is not supported for this request.");
-//        }
 
         downloadURL = ServletUriComponentsBuilder.fromCurrentContextPath().path("/download/").path(newFile.getId().toString()).toUriString();
         return new ResponseData(newFile.getFileName(), downloadURL, file.getContentType(), file.getSize());

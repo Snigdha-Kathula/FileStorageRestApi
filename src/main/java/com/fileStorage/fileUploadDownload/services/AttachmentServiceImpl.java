@@ -10,6 +10,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 
@@ -24,6 +25,7 @@ public class AttachmentServiceImpl implements AttachmentService{
     @Override
 
     public Attachment saveFile(MultipartFile file) throws FileStorageException, IOException {
+
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         if (fileName.contains("..")) {
             throw new FileStorageException(HttpStatus.BAD_REQUEST, "Filename contains invalid path sequence " + fileName);
@@ -31,10 +33,6 @@ public class AttachmentServiceImpl implements AttachmentService{
         if(fileRepository.existsByfileName(fileName)){
             throw new FileStorageException(HttpStatus.BAD_REQUEST, "Filename already Exist. Rename it and upload "+fileName);
         }
-//        long maxValueSize=10*1024*1024;
-//        if(file.getSize() > maxValueSize){
-//            throw new MaxUploadSizeExceededException(HttpStatus.)
-//        }
         Attachment newFile = new Attachment(fileName, file.getContentType(), file.getBytes());
         return fileRepository.save(newFile);
     }
