@@ -25,6 +25,9 @@ public class AttachmentServiceImpl implements AttachmentService{
     @Override
 
     public Attachment saveFile(MultipartFile file) throws FileStorageException, IOException {
+       if(file==null){
+           throw new NullPointerException("File was null");
+       }
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         if(fileName.isEmpty()){
             throw new FileStorageException(HttpStatus.NOT_FOUND, "File was not provided");

@@ -42,6 +42,13 @@ public class AttachmentServiceImplTest {
         assertArrayEquals("Hello, World!".getBytes(), savedFile.getData());
     }
     @Test
+    public void testSaveFile_NullFile() {
+        NullPointerException exception = assertThrows(NullPointerException.class, () -> {
+            attachmentService.saveFile(null);
+        });
+         assertEquals("File was null", exception.getMessage());
+    }
+    @Test
     public void testSaveFile_EmptyFileName() {
         MockMultipartFile file = new MockMultipartFile("file", "", "text/plain", "Hello, World!".getBytes());
 

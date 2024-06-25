@@ -8,13 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -37,6 +33,8 @@ public class AttachmentController {
             newFile = fileService.saveFile(file);
         }catch (FileStorageException e){
             throw new FileStorageException(e.getStatus(), e.getMessage());
+        }catch (NullPointerException e){
+            throw new NullPointerException(e.getMessage());
         }
 
         downloadURL = ServletUriComponentsBuilder.fromCurrentContextPath().path("/download/").path(newFile.getId().toString()).toUriString();
