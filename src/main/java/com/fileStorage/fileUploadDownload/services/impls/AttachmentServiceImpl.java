@@ -1,8 +1,9 @@
-package com.fileStorage.fileUploadDownload.services;
+package com.fileStorage.fileUploadDownload.services.impls;
 
 import com.fileStorage.fileUploadDownload.exceptions.FileStorageException;
 import com.fileStorage.fileUploadDownload.models.Attachment;
 import com.fileStorage.fileUploadDownload.repositories.AttachmentRepository;
+import com.fileStorage.fileUploadDownload.services.AttachmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ import java.io.IOException;
 
 
 @Service
-public class AttachmentServiceImpl implements AttachmentService{
+public class AttachmentServiceImpl implements AttachmentService {
     private AttachmentRepository fileRepository;
    @Autowired
     public AttachmentServiceImpl(AttachmentRepository fileRepository) {

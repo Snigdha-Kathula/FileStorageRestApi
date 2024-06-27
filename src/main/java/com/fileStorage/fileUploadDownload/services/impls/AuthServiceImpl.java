@@ -1,4 +1,4 @@
-package com.fileStorage.fileUploadDownload.services;
+package com.fileStorage.fileUploadDownload.services.impls;
 
 import com.fileStorage.fileUploadDownload.dtos.LoginDto;
 import com.fileStorage.fileUploadDownload.dtos.RegisterDto;
@@ -8,6 +8,7 @@ import com.fileStorage.fileUploadDownload.models.User;
 import com.fileStorage.fileUploadDownload.repositories.RoleRepository;
 import com.fileStorage.fileUploadDownload.repositories.UserRepository;
 import com.fileStorage.fileUploadDownload.security.JwtTokenProvider;
+import com.fileStorage.fileUploadDownload.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
